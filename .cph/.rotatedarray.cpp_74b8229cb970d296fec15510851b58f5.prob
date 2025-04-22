@@ -1,0 +1,1 @@
+{"name":"Local: rotatedarray","url":"g:\\acer files\\Cpp codes\\rotatedarray.cpp","tests":[{"id":1698073403607,"input":"10\n47 45 42 1 2 6 7 8 9 10\n10","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"g:\\acer files\\Cpp codes\\rotatedarray.cpp","group":"local","local":true}

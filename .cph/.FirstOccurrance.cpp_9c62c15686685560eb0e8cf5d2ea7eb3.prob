@@ -1,0 +1,1 @@
+{"name":"Local: FirstOccurrance","url":"g:\\acer files\\Cpp codes\\FirstOccurrance.cpp","tests":[{"id":1697694664457,"input":"8\n1 2 2 3 4 4 4 6\n2","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"g:\\acer files\\Cpp codes\\FirstOccurrance.cpp","group":"local","local":true}

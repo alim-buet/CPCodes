@@ -1,0 +1,41 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        char sentences[n][m];
+        for (int i = 0;i < n;i++) {
+            for (int j = 0;j < m;j++) {
+                cin >> sentences[i][j];
+            }
+        }
+        char name[] = "vika ";
+        int ind = 0;
+        for (int j = 0;j < m;j++) {
+            for (int i = 0;i < n;i++) {
+                if (name[ind] == sentences[i][j]) {
+                    ind++;
+                    break;
+                }
+            }
+
+
+        }
+        if (ind == 4) {
+            cout << "YES" << endl;
+        }
+        else {
+            cout << "NO" << endl;
+        }
+
+
+    }
+
+
+    return 0;
+
+}

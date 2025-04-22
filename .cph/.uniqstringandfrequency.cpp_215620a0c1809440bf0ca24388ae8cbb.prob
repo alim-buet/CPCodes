@@ -1,0 +1,1 @@
+{"name":"Local: uniqstringandfrequency","url":"e:\\acer files\\Cpp codes\\uniqstringandfrequency.cpp","tests":[{"id":1695491678837,"input":"8\nabc\ndef\nabc\nghj\njkl\nghj\nghj\nabc","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\acer files\\Cpp codes\\uniqstringandfrequency.cpp","group":"local","local":true}
