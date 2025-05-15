@@ -19,10 +19,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
-using namespace __gnu_pbds;
 #define yes cout << "YES" << endl;
 #define no cout << "NO" << endl;
 #define vi vector<int>
@@ -30,32 +27,53 @@ using namespace __gnu_pbds;
 #define pii pair<int, int>
 #define pll pair<long long, long long>
 #define ll long long
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-//i am restricted by the technology of my time
 void solve()
 {
     int n;
     cin >> n;
-    vector<pii> start_end(n);
+    vl arr(n);
+    ll totalSum = 0;
     for (int i = 0; i < n; i++)
     {
-        int s, e;
-        cin >> s >> e;
-        start_end[i] = {s, e};
+        cin >> arr[i];
+        totalSum += arr[i];
     }
 
-    sort(start_end.begin(), start_end.end(), [](const pii &a, const pii &b)
-         { return a.second < b.second; });
+    if (totalSum % 3 != 0)
+    {
+        cout << 0 << endl;
+        return;
+    }
 
-    ordered_set start_pos;
+    ll target = totalSum / 3;
+
+    vi forward_ind, backward_ind;
+    ll presum = 0;
+
+    for (int i = 0; i < n - 1; i++)
+    {
+        presum += arr[i];
+        if (presum == target)
+            forward_ind.push_back(i);
+    }
+
+    presum = 0;
+
+    for (int i = n - 1; i > 0; i--)
+    {
+        presum += arr[i];
+        if (presum == target)
+            backward_ind.push_back(i);
+    }
+
+    sort(backward_ind.begin(), backward_ind.end());
+
     ll ans = 0;
 
-    for (int i = 0; i < n; i++)
+    for (int i : forward_ind)
     {
-        ll count = start_pos.size() - start_pos.order_of_key(start_end[i].first);
-        ans += count;
-        start_pos.insert(start_end[i].first);
+        auto it = upper_bound(backward_ind.begin(), backward_ind.end(), i + 1);
+        ans += (backward_ind.end() - it);
     }
 
     cout << ans << endl;
@@ -66,8 +84,7 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    int t;
-    cin >> t;
+    int t = 1;
     while (t--)
     {
         solve();

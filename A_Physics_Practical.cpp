@@ -19,10 +19,8 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+#include <fstream>
 using namespace std;
-using namespace __gnu_pbds;
 #define yes cout << "YES" << endl;
 #define no cout << "NO" << endl;
 #define vi vector<int>
@@ -31,34 +29,32 @@ using namespace __gnu_pbds;
 #define pll pair<long long, long long>
 #define ll long long
 
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-//i am restricted by the technology of my time
 void solve()
 {
+    ifstream in("input.txt");
+    ofstream out("output.txt");
+
     int n;
-    cin >> n;
-    vector<pii> start_end(n);
+    in >> n;
+    vector<int> arr(n);
     for (int i = 0; i < n; i++)
+        in >> arr[i];
+
+    sort(arr.begin(), arr.end());
+
+    int ans = n, j = 0;
+    for (int i = 0; i < n; ++i)
     {
-        int s, e;
-        cin >> s >> e;
-        start_end[i] = {s, e};
+        j = max(j, i);
+        while (j < n && arr[j] <= 2 * arr[i])
+            j++;
+        ans = min(ans, n - (j - i));
     }
 
-    sort(start_end.begin(), start_end.end(), [](const pii &a, const pii &b)
-         { return a.second < b.second; });
+    out << ans << endl;
 
-    ordered_set start_pos;
-    ll ans = 0;
-
-    for (int i = 0; i < n; i++)
-    {
-        ll count = start_pos.size() - start_pos.order_of_key(start_end[i].first);
-        ans += count;
-        start_pos.insert(start_end[i].first);
-    }
-
-    cout << ans << endl;
+    in.close();
+    out.close();
 }
 
 int main()
@@ -66,8 +62,7 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    int t;
-    cin >> t;
+    int t = 1;
     while (t--)
     {
         solve();
