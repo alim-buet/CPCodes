@@ -27,9 +27,32 @@ using namespace std;
 #define pii     pair<int, int>
 #define pll     pair<long long, long long>
 #define ll      long long
-
+class Solution
+{
+public:
+    bool isZeroArray(vector<int> &nums, vector<vector<int>> &queries)
+    {
+        int n = nums.size();
+        vector<int> presum(n, 0);
+        for(auto v:queries){
+            int l = v[0];
+            int r = v[1];
+            presum[l]++;
+            if(r<n-1){
+                presum[r + 1]--;
+            }
+        }
+        for (int i = 1; i < n;i++){
+            presum[i] += presum[i - 1];
+        }
+        for (int i = 0; i < n;i++){
+            if(nums[i]>presum[i])
+                return false;
+        }
+        return true;
+    }
+};
 void solve() {
-    int n;cin>>n;
     
 }
 
