@@ -28,35 +28,29 @@ using namespace std;
 #define pll pair<long long, long long>
 #define ll long long
 
+vector<long long> getFactors(long long n) {
+    vector<long long> factors;
+    for (long long i = 1; i * i <= n; i++) {
+        if (n % i == 0) {
+            factors.push_back(i);
+            if (i != n / i) {
+                factors.push_back(n / i);
+            }
+        }
+    }
+    sort(factors.begin(), factors.end());
+    return factors;
+}
+//getFactors function that returns the unordered 
+
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
-    sort(s.begin(), s.end());
-
-    if (s[0] != s[k - 1])
-    {
-        cout << s[k - 1] << endl;
-    }
-    else if (k < n && s[k] != s[n - 1])
-    {
-        cout << s[0];
-        for (int i = k; i < n; ++i)
-            cout << s[i];
-        cout << endl;
-    }
-    else
-    {
-        cout << s[0];
-        int count = (n - k + k - 1) / k; 
-        for (int i = 0; i < count; ++i)
-        {
-            cout << s[k];
-        }
-        cout << endl;
-    }
+    ll a, b;
+    cin >> a >> b;
+    vl factorsA = getFactors(a);
+    vl factorsB = getFactors(b);
+    
+    
 }
 
 int main()
@@ -64,8 +58,7 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    int t;
-    cin >> t;
+    int t = 1;
     while (t--)
     {
         solve();

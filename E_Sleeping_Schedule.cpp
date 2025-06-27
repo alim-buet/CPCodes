@@ -30,33 +30,34 @@ using namespace std;
 
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
-    sort(s.begin(), s.end());
+    ll n, h, l, r;
+    cin >> n >> h >> l >> r;
+    vl a(n + 1); // 1-based for clarity
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
+    }
 
-    if (s[0] != s[k - 1])
+    vector<vector<ll>> dp(n + 1, vector<ll>(h, -1));
+    dp[0][0] = 0;
+
+    for (int i = 1; i <= n; ++i)
     {
-        cout << s[k - 1] << endl;
-    }
-    else if (k < n && s[k] != s[n - 1])
-    {
-        cout << s[0];
-        for (int i = k; i < n; ++i)
-            cout << s[i];
-        cout << endl;
-    }
-    else
-    {
-        cout << s[0];
-        int count = (n - k + k - 1) / k; 
-        for (int i = 0; i < count; ++i)
+        for (int t = 0; t < h; ++t)
         {
-            cout << s[k];
+            // from two previous times
+            int t1 = (t - a[i] + h) % h;
+            int t2 = (t - a[i] + 1 + h) % h;
+
+            if (dp[i - 1][t1] != -1)
+                dp[i][t] = max(dp[i][t], dp[i - 1][t1] + ((t >= l && t <= r) ? 1 : 0));
+            if (dp[i - 1][t2] != -1)
+                dp[i][t] = max(dp[i][t], dp[i - 1][t2] + ((t >= l && t <= r) ? 1 : 0));
         }
-        cout << endl;
     }
+
+    ll ans = *max_element(dp[n].begin(), dp[n].end());
+    cout << ans << '\n';
 }
 
 int main()
@@ -64,8 +65,7 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    int t;
-    cin >> t;
+    int t = 1;
     while (t--)
     {
         solve();

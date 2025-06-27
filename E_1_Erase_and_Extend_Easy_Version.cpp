@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <map>
+#include <climits>
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
@@ -34,29 +35,24 @@ void solve()
     cin >> n >> k;
     string s;
     cin >> s;
-    sort(s.begin(), s.end());
 
-    if (s[0] != s[k - 1])
+    string answer(k, 'z');
+    // brute force shoud work
+    for (int i = 1; i <= n; ++i)
     {
-        cout << s[k - 1] << endl;
-    }
-    else if (k < n && s[k] != s[n - 1])
-    {
-        cout << s[0];
-        for (int i = k; i < n; ++i)
-            cout << s[i];
-        cout << endl;
-    }
-    else
-    {
-        cout << s[0];
-        int count = (n - k + k - 1) / k; 
-        for (int i = 0; i < count; ++i)
+        string prefix = s.substr(0, i);
+        string temp = "";
+
+        while ((int)temp.size() < k)
         {
-            cout << s[k];
+            temp += prefix;
         }
-        cout << endl;
+
+        temp = temp.substr(0, k);
+        answer = min(answer, temp);
     }
+
+    cout << answer << endl;
 }
 
 int main()
@@ -64,8 +60,8 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    int t;
-    cin >> t;
+    int t = 1;
+    // cin >> t;
     while (t--)
     {
         solve();

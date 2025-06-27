@@ -30,33 +30,46 @@ using namespace std;
 
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
-    sort(s.begin(), s.end());
-
-    if (s[0] != s[k - 1])
+    int n;
+    cin >> n;
+    int flag = 1;
+    vi group1(n, 0), group2(n, 0);
+    for (int i = 0; i < n; i++)
     {
-        cout << s[k - 1] << endl;
-    }
-    else if (k < n && s[k] != s[n - 1])
-    {
-        cout << s[0];
-        for (int i = k; i < n; ++i)
-            cout << s[i];
-        cout << endl;
-    }
-    else
-    {
-        cout << s[0];
-        int count = (n - k + k - 1) / k; 
-        for (int i = 0; i < count; ++i)
+        int x, y;
+        cin >> x >> y;
+        x--, y--;
+        if (flag == 0)
+            continue;
+        if (x == y)
         {
-            cout << s[k];
+            flag = 0;
+            continue;
         }
-        cout << endl;
+        if (group1[x] == 0 && group1[y] == 0)
+        {
+            group1[x] = 1;
+            group1[y] = 1;
+        }
+        else
+        {
+            if (group2[x] == 0 && group2[y] == 0)
+            {
+                group2[x] = 1;
+                group2[y] = 1;
+            }
+            else
+            {
+                flag = 0;
+                continue;
+            }
+        }
     }
+
+    if (flag)
+        yes;
+    else
+        no;
 }
 
 int main()

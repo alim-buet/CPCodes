@@ -32,30 +32,43 @@ void solve()
 {
     int n, k;
     cin >> n >> k;
-    string s;
-    cin >> s;
-    sort(s.begin(), s.end());
-
-    if (s[0] != s[k - 1])
+    vector<int> both, onlyAlice, onlyBob;
+    for (int i = 0; i < n; i++)
     {
-        cout << s[k - 1] << endl;
+        int t, a, b;
+        cin >> t >> a >> b;
+        if (a && b)
+        {
+            both.push_back(t);
+        }
+        else if (a)
+        {
+            onlyAlice.push_back(t);
+        }
+        else if (b)
+        {
+            onlyBob.push_back(t);
+        }
     }
-    else if (k < n && s[k] != s[n - 1])
+    sort(onlyAlice.begin(), onlyAlice.end());
+    sort(onlyBob.begin(), onlyBob.end());
+    
+    for (int i = 0; i < min(onlyAlice.size(), onlyBob.size()); i++)
     {
-        cout << s[0];
-        for (int i = k; i < n; ++i)
-            cout << s[i];
-        cout << endl;
+        both.push_back(onlyAlice[i] + onlyBob[i]);
     }
+    sort(both.begin(), both.end());
+    if (both.size() < k)
+        cout << -1 << endl;
     else
     {
-        cout << s[0];
-        int count = (n - k + k - 1) / k; 
-        for (int i = 0; i < count; ++i)
+        ll ans = 0;
+        for (int i = 0; i < k; i++)
         {
-            cout << s[k];
+            ans += both[i];
         }
-        cout << endl;
+        //cout<<both.size() << " " << k << endl;
+        cout << ans << endl;
     }
 }
 
@@ -64,8 +77,7 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    int t;
-    cin >> t;
+    int t = 1;
     while (t--)
     {
         solve();
